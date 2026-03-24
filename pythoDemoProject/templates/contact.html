@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="text-center inner-page-header">
+    <h2>Contact Us</h2>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+      </ol>
+    </nav>
+  </section>
+  <h6>name:{{data.name}}</h6>
+  <h6>email:{{data.email}}</h6>
+  <h6>phone:{{data.phone}}</h6>
+  <h6>date:{{data.date}}</h6>
+  <h6>query:{{data.query}}</h6>
+
+  <section>
+    <div class="container">
+      <div class="row"> 
+        <div class="col-lg-6 align-self-center">
+          <div class="heading heading_about">
+            <h2>Connect With Us</h2>
+            <span>Embark with Us Apply Today: Begin your journey to transformation. Engage with us through a simple application, followed by a personal consultation to explore the synergy between your vision and our mission.</span>
+          </div>
+          <div class="contact-us">
+            <div class="d-flex">
+              <div class="icon-img">
+                <img src="/static/image/icon-14.png">
+              </div>
+              <div class="text-img">
+                <p>Location</p>
+                <small>1500 Weston Rd Suite 200, Weston, FL 33326</small>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="icon-img">
+                <img src="/static/image/icon-15.png">
+              </div>
+              <div class="text-img">
+                <p>Contact</p>
+                <small>800-471-2630</small>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="icon-img">
+                <img src="/static/image/icon-16.png">
+              </div>
+              <div class="text-img">
+                <p>E-mail</p>
+                <small>info@highlandlakes.com</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="application-contact">
+            <h3 class="main-heading mb-2 mt-0">Get In Touch With Me!</h3>
+            <p>Get in touch with us and our experts and developers would love to contribute their expertise and insights
+              and help you today.</p>
+              <form method="POST" >
+                {% csrf_token %}
+                <div class="row">
+                <div class="col-lg-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="name" placeholder="Full name" />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="email" placeholder="Email" />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="phone" placeholder="Phone" />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="date" placeholder="Date/Time Meeting" />
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <textarea class="form-control h-auto" name="query" rows="4" placeholder="Your Query..."></textarea>
+                </div>
+              </div>
+
+              <div class="col-lg-12">
+                <div class="buttons-div mt-4">
+                  <button type="submit" class="btn btn-blue">Submit</button>
+                </div>
+              </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="pt-0">
+    <div class="container">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3582.304024660068!2d-80.36371968499418!3d26.12162839998412!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9098b6d01dde9%3A0xf46047e7545cd6a6!2sGLOBAL%20SOURCE%20DATA%20SOLUTIONS!5e0!3m2!1sen!2sin!4v1624436553674!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </section>
+  
+
+{% endblock %}
+
+

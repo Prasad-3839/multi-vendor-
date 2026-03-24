@@ -1,0 +1,162 @@
+@media(max-width:1800px){
+	.what-we-do .what-content .main-heading{margin: 0px 0px 10px;}
+	.what-content {padding: 40px 40px 40px 80px;}
+}
+
+@media (max-width: 1400px) {
+	.container.big-container {padding: 0px 30px;}
+	.featured-slider .next-btn {right: 30px;}
+	.featured-slider .prev-btn {right: 80px;}
+	.what-content {padding: 40px 0px 60px 60px;}
+	.main-heading{margin: 10px 0px 20px;}
+	.content-div h5{margin-bottom:4px;}
+}
+
+@media (max-width: 1320px) {
+	.banner h1 {font-size: 50px;}
+	.container.big-container {padding: 0px 12px;}
+	.banner {padding: 60px 80px;}
+}
+
+@media (min-width: 1200px) {
+	#user_nav {display: none;}
+}
+
+@media (max-width: 1200px) {
+	/* dashboard */
+	.dashboard-menu {display: block;min-width: 100%;top: 0px;}
+	.user-menu {display: none;}
+	.dashboard {display: block;}
+	.school-title {display: flex;align-items: center;padding: 8px 30px;}
+	.school-title h3 {margin-top: 0px;text-align: left;}
+	.school-logo {width: 50px;height: 50px;}
+	.school-title a.edit {top: -7px;width: 20px;height: 20px;line-height: 20px;font-size: 11px;}
+	.school-title .position-relative {margin-right: 15px;}
+	.user-menu a.active {border-radius: 0px 0px 0px 0px;}
+	.user-menu a {padding: 10px 26px;}
+	.user-menu {padding-left: 20px;margin-top: 10px;padding-bottom: 10px;padding-right: 20px;}
+	.user-menu.active {display: block;}
+
+	.navbar-brand img, .logo-white img {height: 60px;}
+	.banner h1 {font-size: 40px;}
+	.exp{right:0;}
+	.what-content {padding: 40px 0px 60px 40px;}
+	.left-img {display: none;}
+	.facts h2, .facts-couting h2{font-size: 40px;}
+	.fund-img img{margin: 50px 0px 0px 0px;}
+	.join-us-content h2{font-size: 40px;}
+	.right-menu.gap-5{gap: 1rem !important;}
+	.right-img{display:none;}
+}
+
+@media (max-width: 991px) {
+	.navbar-toggler:focus,.navbar-toggler{border:none;box-shadow: none;outline:none;}
+	.custom-navbar .navbar-collapse .nav-link{padding: 10px 0px;}
+	.banner .w-50{width: 100% !important;position: relative;}
+	.spain-img{right: calc(0px + 50px);}
+	.banner {padding: 40px 50px;}
+	.about-content{margin-top:30px;}
+	.what-we-do-section{border-radius: 0px;}
+	.facts-couting{margin-top:30px;}
+	.featured-slider .slick-arrow{top:40%;transform: translateY(-50%);z-index: 9;    background:#0068b2;color: #fff;}
+	.featured-slider .prev-btn {right: auto;left: 30px;}
+	.fund-text{margin-top:90px;}
+	.fund_div{padding-bottom:0px;}
+	.application{margin-bottom: 30px;}
+	.right-menu{margin-top:30px;}
+	.right-menu.d-flex, .social_connect{justify-content: flex-start !important;}
+	.inner-page-header{background: var(--blue) url(../image/compare-bg..jpg) no-repeat bottom 0px center / cover;padding: 20px 0px;}
+	.inner-page-header h2{font-size: 24px;}
+	.inner-page-header li{font-size: 16px;}
+	.contact-us{margin-bottom:30px;}
+	
+}
+
+@media (max-width: 767px) {
+	.banner {padding: 45px 25px;background: url(../image/banner.jpg) no-repeat bottom right/ cover;}
+	.banner h1 {font-size: 24px;font-weight: 600;}
+	.btn{padding: 10px 20px;font-size: 14px;}
+	.spain-img {right: calc(0px + 20px);max-width: 60px;}
+	.banner p{font-size: 16px;line-height: 24px;padding: 10px 0px;}
+	section {padding: 30px 0px;}
+	.right-menu{flex-wrap: wrap;}
+	.join-us{padding: 30px;}
+	.join-us-content h2 {font-size: 24px;}
+	.join-us-content p{margin: 20px 0px;font-size: 16px;}
+	.right-img{display:none;}
+	.main-heading{font-size: 24px;line-height: 32px;margin: 10px 0px 10px;}
+	.exp h2{line-height: 31px;font-size: 42px;}
+	.exp{width: 215px;bottom: 20px;padding: 15px;right: 20px;}
+	.what-content {padding: 20px 20px 20px 20px;}
+	.content-div .d-flex{display:block !important;}
+	.content-div p{margin-bottom: 5px;line-height: 22px;}
+	.content-div h5{margin-bottom: 6px;}
+	.buttons-div.mt-5{margin-top:30px !important;}
+	.facts h2, .facts-couting h2{font-size: 24px;}
+	.team-member.d-flex{display:block !important;}
+	.team-icon{margin-bottom:20px;}
+	.team-heading p {font-size: 16px;line-height: 24px;}
+	.application-contact{padding: 25px;}
+	footer{padding: 30px 0px 0px;}
+	.rights{margin-top: 30px;padding: 10px 0px;}
+	.right-menu a{font-size: 14px;line-height: 14px;}
+	.social_connect{margin-top: 25px;}
+	.facts-couting img {margin-bottom: 15px;max-width: 40px;}
+	.team-icon img{max-width: 60px;}
+	.featured-slider {margin-top: 30px;}
+	.rights .d-flex{display:block !important;text-align:center;}
+	.rights p{padding: 0px 0;font-size: 14px;}
+	.interisting .row.border-bottom {padding-bottom: 30px;}
+	.facts-couting p{font-size: 16px;line-height: 20px;margin-top: 5px;}
+	.team-heading h4{font-size: 20px;}
+	.about-img.text-end{margin-top:30px;margin-bottom: 0;}
+	.vission{margin-top:30px;}
+	.reach{padding: 30px 0px;}
+	.about-img{margin-bottom:30px;}
+	.mission_vission, .services_page{margin-top:20px !important;}
+	.heading2{font-size: 16px;}
+	.card-custom .card-title{font-size: 16px;line-height: 24px;}
+	.large_picture img{height: 260px;}
+	.border-top h2, .border-top h4, .cate_h{font-size: 18px;}
+	.facts{margin-bottom:20px;}
+	.facts-couting {margin-top: 0px;}
+	.school-title {padding: 15px 15px 10px;}
+	.left-heading h4{font-size: 18px;}
+	.user-menu {padding: 0 0;}
+	.user-menu a{font-size: 14px;}
+	.school-title h3{font-weight: 500; font-size: 16px;}
+	.dashboard-content {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.dashboard {
+		min-height: auto;
+	}
+
+	.what-we-do-img.h-100{
+		height: auto !important;
+	}
+
+	.card-custom .card-body{max-width:100%;}
+	/* .about-img img{width:100%;} */
+}
+
+@media(max-width:550px){
+	.banner {
+		padding: 45px 25px;
+		background: url(../image/banner.jpg) no-repeat bottom right -240px / cover;
+	}
+
+	.banner:before{
+		content:'';
+		background: rgb(255 255 255 / 71%);
+		position: absolute;
+		top:0;
+		bottom:0;
+		left: 0;
+		right:0;
+	}
+}
+
+
+
