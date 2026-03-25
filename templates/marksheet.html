@@ -1,0 +1,29 @@
+<h2>Student Marksheet</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="name" placeholder="Student Name"><br><br>
+
+    <input type="number" name="sub1" placeholder="Subject 1"><br><br>
+    <input type="number" name="sub2" placeholder="Subject 2"><br><br>
+    <input type="number" name="sub3" placeholder="Subject 3"><br><br>
+    <input type="number" name="sub4" placeholder="Subject 4"><br><br>
+    <input type="number" name="sub5" placeholder="Subject 5"><br><br>
+    <input type="number" name="sub6" placeholder="Subject 6"><br><br>
+
+    <button type="submit">Generate Marksheet</button>
+</form>
+
+<hr>
+
+{% if result %}
+    {% if result.error %}
+        <p style="color:red;">{{ result.error }}</p>
+    {% else %}
+        <h3>Name: {{ result.name }}</h3>
+        <h3>Total: {{ result.total }}</h3>
+        <h3>Percentage: {{ result.percentage }}%</h3>
+        <h3>Division: {{ result.division }}</h3>
+    {% endif %}
+{% endif %}
