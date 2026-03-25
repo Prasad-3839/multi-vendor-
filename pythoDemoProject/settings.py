@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'pythoDemoProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'python_demo',
+        'NAME': 'multi_vendor',
         'USER': 'root',
         'PASSWORD': '', 
         'HOST': '127.0.0.1',

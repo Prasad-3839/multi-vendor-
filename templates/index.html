@@ -1,368 +1,52 @@
 {% extends "base.html" %}
+
 {% block content %}
 
- <section class="banner-section p-0">
-    <div class="container big-container">
-      <div class="banner position-relative">
-        <!-- <img src="image/spain-img.png" class="spain-img" /> -->
-        <div class="w-50">
-          <h1 class="mb-0">Highland Lakes</h1>
-          <p>A PreambleIn an era marked by tumultuous change and boundless opportunities, Highland Lakes stands as a beacon of innovation and stability in the investment landscape.</p>
-          <div class="buttons-div">
-            <a href="#" class="btn btn-white me-2">Read More</a>
-            <a href="#" class="btn btn-blue">Contact Us</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- Hero Banner -->
+
+<div class="p-5 text-center bg-light rounded">
+
+<h1>Welcome to MyMarket</h1>
+
+<p>Buy from thousands of vendors.</p>
+
+<a class="btn btn-warning btn-lg">Start Shopping</a>
+
+</div>
 
 
+<!-- Featured Products -->
 
-  <section>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 col-md-8">
-          <div class="about-img position-relative">
-            <img src="/static/image/about-img.jpg" class="img-fluid" alt="" srcset="">
-            <div class="exp text-center">
-              <h2>50+</h2>
-              <p>YEARS OF COMBINED EXPERIENCE</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="about-content">
-            <label class="line-title text-uppercase d-flex align-items-center gap-3"><span></span>About Us</label>
-            <h3 class="main-heading">Welcome To Highland Lakes</h3>
-            <p>Our mission transcends mere financial transactions, delving into the very fabric of future living. At
-              Highland Lakes, we don't just invest; we foresee, empower, and transform. </p>
-            <p>Meet the Vanguard Our team is a collective of visionaries, each a master in their domain, yet united by a
-              shared ambition to redefine the real estate and technology sectors. Their expertise spans from the
-              intricate ballet of municipal infrastructure development to the pioneering frontiers of medical and energy
-              innovation. This fusion of talent and foresight is the cornerstone upon which Highland Lakes stands.</p>
-            <p>Our Sphere of InfluenceReal Estate VenturesSemi-Rural Housing Demands: Navigating the delicate balance
-              between nature and development, we craft housing solutions that honor the serene spirit of semi-rural
-              living.</p>
-            <a href="about.html" class="arrow-link">Learn More <i class="icofont-long-arrow-right"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<h3 class="mt-5 mb-3">Featured Products</h3>
 
-  <section class="what-we-do p-0">
-    <div class="container big-container">
-      <div class="what-we-do-section position-relative">
-        <img src="/static/image/icon-12.png" class="position-absolute left-img" alt="" srcset="">
-        <div class="row">
-          <div class="col-lg-6 d-flex align-items-center">
-            <div class="what-content">
-              <h3 class="main-heading">What we do</h3>
-              <p>Our EthosAt Highland Lakes, our goals are not merely etched in the balance sheets
-                but in the very landscape of tomorrow.</p>
+<div class="row">
 
-              <div class="services mt-5">
-                <div class="main-services d-flex align-items-start gap-3">
-                  <div class="icon-div d-flex align-items-center justify-content-center">
-                    <img src="/static/image/icon-2.png" />
-                  </div>
-                  <div class="content-div">
-                    <h5>Medical Research</h5>
-                    <div class="d-flex flex-wrap">
-                      <p><img src="/static/image/icon-5.png" /> Semi-Rural Housing Demands</p>
-                      <p><img src="/static/image/icon-5.png" /> Meeting R-3 Rental needs</p>
-                      <p><img src="/static/image/icon-5.png" /> Municipal Infrastructure</p>
-                      <p><img src="/static/image/icon-5.png" /> Economy of scale for reliable housing</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="main-services d-flex align-items-center gap-3">
-                  <div class="icon-div d-flex align-items-center justify-content-center">
-                    <img src="/static/image/icon-3.png" />
-                  </div>
-                  <div class="content-div">
-                    <h5>Medical Research</h5>
-                    <div class="">
-                      <p>Providing funding to medical technology breakthroughs</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="main-services d-flex align-items-start gap-3">
-                  <div class="icon-div d-flex align-items-center justify-content-center">
-                    <img src="/static/image/icon-4.png" />
-                  </div>
-                  <div class="content-div">
-                    <h5>Energy Innovation</h5>
-                    <div class="">
-                      <p>Funding energy innovations and technologies that stretch our vital resources
-                        further with less. Increasing Production, Reducing waste, and fueling creative
-                        energy storage and energy conversion projects.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="buttons-div mt-5">
-                <a href="service.html" class="btn btn-blue">View Services</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="what-we-do-img d-flex align-items-center h-100">
-              <img src="/static/image/what-we-do.png" class="img-fluid" alt="" srcset="">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+{% for product in products %}
 
-  <section class="interisting">
-    <div class="container">
-      <div class="row border-bottom">
-        <div class="col-lg-4">
-          <div class="facts">
-            <h2>Some Interisting Facts</h2>
-            <p>We are not just building for the future, we are defining it. Join us in this journey of transformation.
-            </p>
-          </div>
-        </div>
-        <div class="col-lg-8" id="counter">
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-4 border-end">
-              <div class="facts-couting text-center">
-                <img src="/static/image/icon-6.png" alt="" srcset="">
-                <h2 class="counter-value position-relative add_plus mb-0" data-count="55"></h2>
-                <p>Global Clients</p>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-4 border-end">
-              <div class="facts-couting text-center">
-                <img src="/static/image/icon-7.png" alt="" srcset="">
-                <h2 class="counter-value position-relative add_plus mb-0" data-count="360"></h2>
-                <p>Work Completed</p>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-4">
-              <div class="facts-couting text-center">
-                <img src="/static/image/icon-8.png" alt="" srcset="">
-                <h2 class="counter-value position-relative add_plus mb-0" data-count="450"></h2>
-                <p>Certified Experts</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="col-md-3 mb-4">
 
-  <section class="pt-0">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-9">
-          <div class="team-member d-flex align-items-center gap-5">
-            <div class="team-icon"><img src="/static/image/icon-9.png" class="img-fluid" alt="" srcset=""></div>
-            <div class="team-heading">
-              <h4>OUR Team</h4>
-              <p>Meet the Vanguard Our team is a collective of visionaries, each a master in their domain, yet united by
-                a shared ambition to redefine the real estate and technology sectors.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container-fluid p-0 ps-lg-3">
-      <div class="row justify-content-end g-0">
-        <div class="col-xxl-10 col-xl-12">
-          <ul class="featured-slider">
-            <li class="text-center">
-              <div class="team-image text-center">
-                <img src="/static/image/team-1.png" class="img-fluid" alt="" srcset="">
-              </div>
-              <h5>Roger J. Watkins</h5>
-              <p>CEO of Kanoo Energy</p>
-            </li>
-            <li class="text-center">
-              <div class="team-image text-center">
-                <img src="/static/image/team-2.png" class="img-fluid" alt="" srcset="">
-              </div>
-              <h5>Roger J. Watkins</h5>
-              <p>CEO of Kanoo Energy</p>
-            </li>
-            <li class="text-center">
-              <div class="team-image text-center">
-                <img src="/static/image/team-3.png" class="img-fluid" alt="" srcset="">
-              </div>
-              <h5>Roger J. Watkins</h5>
-              <p>CEO of Kanoo Energy</p>
-            </li>
-            <li class="text-center">
-              <div class="team-image text-center">
-                <img src="/static/image/team-1.png" class="img-fluid" alt="" srcset="">
-              </div>
-              <h5>Roger J. Watkins</h5>
-              <p>CEO of Kanoo Energy</p>
-            </li>
-            <li class="text-center">
-              <div class="team-image text-center">
-                <img src="/static/image/team-2.png" class="img-fluid" alt="" srcset="">
-              </div>
-              <h5>Roger J. Watkins</h5>
-              <p>CEO of Kanoo Energy</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="card h-100">
 
-  <section class="pt-0 fund_div">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <div class="fund-img position-relative">
-            <img src="/static/image/fund.jpg" class="img-fluid" alt="" srcset="">
-            <img src="/static/image/fund-bottom.png" class="fund-bottom img-fluid" alt="" srcset="">
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="fund-text">
-            <h3 class="main-heading">How we fund</h3>
-            <p><img src="/static/image/icon-10.png" alt="" srcset="" />Highland Lakes is tasked with screening, qualifying, and managing
-              the projects that will change the world. </p>
-            <p><img src="/static/image/icon-10.png" alt="" srcset="" />Credit Facility management for private single-family
-              office funding sources.
-            </p>
-            <p><img src="image/icon-10.png" alt="" srcset="" />Our funding sources rely on Highland Lakes to find opportunities
-              that are best suited to </p>
-            <div class="fund-inner">
-              <p><img src="/static/image/icon-11.png" alt="" srcset="" />Provide Municipal development that increases the tax
-                base while at the same time generating new housing inventory, utilization and development of municipal
-                roads, streets, sewer, and water for housing infrastructure
-              </p>
-              <p><img src="/static/image/icon-11.png" alt="" srcset="" />Provide Construction Jobs
-              </p>
-              <p><img src="/static/image/icon-11.png" alt="" srcset="" />Encourage domestic building materials trade and
-                manufacturing.
-              </p>
-              <p><img src="/static/image/icon-11.png" alt="" srcset="" />Encourage housing sector service jobs.
-              </p>
-              <p><img src="/static/image/icon-11.png" alt="" srcset="" />Responsibly design buildings that are energy-efficient
-                and ecologically
-                responsible.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<img src="{{ product.image.url }}" class="card-img-top">
 
-  <section>
-    <div class="container big-container">
-      <div class="join-us position-relative">
-        <div class="join-us-content text-center position-relative">
-          <h2>Join us in this journey of transformation, </br>where every investment</h2>
-          <p>is a step towards a more sustainable, innovative, and prosperous world.</p>
-          <div class="buttons-div">
-            <a href="#" class="btn btn-blue">Join Us</a>
-          </div>
-        </div>
-        <img src="/static/image/icon-12.png" class="position-absolute left-img" alt="" srcset="">
-        <img src="/static/image/icon-13.png" class="position-absolute right-img" alt="" srcset="">
-      </div>
-    </div>
-  </section>
+<div class="card-body">
 
-  <section class="pt-0">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="application">
-            <h3 class="main-heading mb-4">Application Process</h3>
-            <p>Our Sphere of InfluenceReal Estate Ventures Semi-Rural Housing Demands: Navigating the delicate balance
-              between nature and development, we craft housing solutions that honor the serene spirit of semi-rural
-              living.</p>
+<h6>{{ product.name }}</h6>
 
-            <div class="services mt-5">
-              <div class="main-services d-flex align-items-center gap-3">
-                <div class="icon-div d-flex align-items-center justify-content-center">
-                  <img src="/static/image/icon-2.png" />
-                </div>
-                <div class="content-div">
-                  <h5>Banker / Broker Referrals</h5>
-                  <div class="">
-                    <p>Worthy projects often fail to meet traditional lending requirements.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="main-services d-flex align-items-start gap-3">
-                <div class="icon-div d-flex align-items-center justify-content-center">
-                  <img src="/static/image/icon-2.png" />
-                </div>
-                <div class="content-div">
-                  <h5>Criteria</h5>
-                  <p>1. <strong>Housing:</strong> fueling success</p>
-                  <div class="ps-3">
-                    <p class="mb-2"><img src="/static/image/icon-5.png" class="me-2" /> Fully entitled shovel-ready projects.
-                    </p>
-                    <p class="mb-2"><img src="/static/image/icon-5.png" class="me-2" /> Phase-locked developments leverage
-                      existing infrastructure.</p>
-                    <p><img src="/static/image/icon-5.png" class="me-2" /> Propelling successful general contractors when banks
-                      fall short.</p>
-                  </div>
-                  <p class="mt-4">2. <strong>Technology:</strong> Helping inventors, engineers, and thinkers to bring
-                    concepts to
-                    market.</p>
-                  <p>3. <strong>Energy:</strong> Innovative technologies to transform our world.</p>
-                </div>
+<p>$ {{ product.price }}</p>
 
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="application-contact">
-            <h3 class="main-heading mb-2 mt-0">Get In Touch With Me!</h3>
-            <p>Get in touch with us and our experts and developers would love to contribute their expertise and insights
-              and help you today.</p>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Full name" />
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Email" />
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Phone" />
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Date/Time Meeting" />
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="form-group">
-                  <textarea class="form-control h-auto" rows="4" placeholder="Your Query..."></textarea>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="buttons-div mt-4">
-                  <a href="#" class="btn btn-blue">Submit</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<a href="/product/{{product.id}}" class="btn btn-outline-primary btn-sm">View</a>
 
+<button class="btn btn-warning btn-sm">Add to Cart</button>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
 
 {% endblock %}
