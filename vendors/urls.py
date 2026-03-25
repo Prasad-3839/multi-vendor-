@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import create_vendor,vendor_dashboard
+from .views import become_vendor,vendor_dashboard
 
 urlpatterns = [
-    path('create/', create_vendor, name='create_vendor'),
-    path('dashboard/', vendor_dashboard, name='vendor_dashboard'),
+    path('become-vendor/', become_vendor, name='become_vendor'),
+    path('vendor-dashboard/', vendor_dashboard, name='vendor_dashboard'),
 ]

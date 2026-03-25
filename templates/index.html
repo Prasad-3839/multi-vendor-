@@ -1,52 +1,41 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <!-- Hero Banner -->
 
 <div class="p-5 text-center bg-light rounded">
+  <h1>Welcome to MyMarket</h1>
 
-<h1>Welcome to MyMarket</h1>
+  <p>Buy from thousands of vendors.</p>
 
-<p>Buy from thousands of vendors.</p>
-
-<a class="btn btn-warning btn-lg">Start Shopping</a>
-
+  <a class="btn btn-warning btn-lg">Start Shopping</a>
 </div>
-
 
 <!-- Featured Products -->
 
 <h3 class="mt-5 mb-3">Featured Products</h3>
 
 <div class="row">
+  {% for product in products %}
 
-{% for product in products %}
+  <div class="col-md-3 mb-4">
+    <div class="card h-100">
+      <img src="{{ product.image.url }}" class="card-img-top" />
 
-<div class="col-md-3 mb-4">
+      <div class="card-body">
+        <h6>{{ product.name }}</h6>
 
-<div class="card h-100">
+        <p>$ {{ product.price }}</p>
 
-<img src="{{ product.image.url }}" class="card-img-top">
+        <a href="/product/{{product.id}}" class="btn btn-outline-primary btn-sm"
+          >View</a
+        >
 
-<div class="card-body">
+        <button class="btn btn-warning btn-sm">Add to Cart</button>
+      </div>
+    </div>
+  </div>
 
-<h6>{{ product.name }}</h6>
-
-<p>$ {{ product.price }}</p>
-
-<a href="/product/{{product.id}}" class="btn btn-outline-primary btn-sm">View</a>
-
-<button class="btn btn-warning btn-sm">Add to Cart</button>
-
-</div>
-
-</div>
-
-</div>
-
-{% endfor %}
-
+  {% endfor %}
 </div>
 
 {% endblock %}
