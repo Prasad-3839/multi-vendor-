@@ -1,114 +1,82 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% block content %}
 
-<!-- Hero Banner -->
+<!-- 🔹 CATEGORY FILTER -->
+<div class="bg-white p-3 mb-4 shadow-sm d-flex justify-content-center gap-3 flex-wrap">
 
-{% comment %}
-<p>Login Status: {{ user.is_authenticated }}</p>
-<p>User: {{ user }}</p>
-<p>Vendor: {{ vendor }}</p>
-{% endcomment %}
+  <form method="GET" class="d-flex gap-2 flex-wrap">
 
-<!-- HERO SEARCH -->
-<div style="background:#131921; padding:30px; color:white;">
-
-  <h2 style="text-align:center; margin-bottom:20px;">
-    Find the Best Products
-  </h2>
-
-  <form method="GET" 
-        style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-
-    <!-- CATEGORY -->
-    <select name="category" style="padding:10px; border-radius:5px;">
-      <option value="">All</option>
-
+    <select name="category" class="form-select" style="width:200px;">
+      <option value="">All Categories</option>
       {% for cat in categories %}
-        <option value="{{ cat.id }}"
-          {% if cat.id|stringformat:"s" == selected_category %}
-            selected
-          {% endif %}
-        >
+        <option value="{{ cat.id }}" {% if cat.id|stringformat:"s" == selected_category %}selected{% endif %}>
           {{ cat.name }}
         </option>
       {% endfor %}
     </select>
 
-    <!-- SEARCH -->
-    <input type="text" name="search"
-           placeholder="Search products..."
-           value="{{ search_query }}"
-           style="padding:10px; width:300px; border-radius:5px; border:none;">
-
-    <!-- BUTTON -->
-    <button type="submit"
-            style="background:#febd69; border:none; padding:10px 15px; border-radius:5px;">
-      🔍 Search
-    </button>
+    <input type="text" name="search" class="form-control" placeholder="Search products..." style="width:300px;" value="{{ search_query }}">
+    <button class="btn btn-primary">Search</button>
 
   </form>
-
 </div>
 
-<!-- Featured Products -->
-<h3 class="mt-4">Products</h3>
-<p><b>{{ products.count }}</b> results found</p>
+<!-- 🔹 PRODUCT GRID -->
+<h5 class="mb-3">Trending Products ({{ products.count }})</h5>
 
 <div class="row">
+
   {% for product in products %}
+  <div class="col-md-3 col-sm-6 mb-4">
 
-  <div class="col-md-3 mb-4">
-    <div class="card h-100 shadow-sm">
+    <div class="card product-card h-100 p-2">
 
-      {% if product.image %}
-        <img src="{{ product.image.url }}" 
-             class="card-img-top" 
-             style="height:200px; object-fit:cover;">
-      {% endif %}
+      <!-- IMAGE -->
+      <div class="text-center">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" class="img-fluid" style="height:180px; object-fit:contain;">
+        {% endif %}
+      </div>
 
-      <div class="card-body">
-        <h6>{{ product.name }}</h6>
+      <!-- DETAILS -->
+      <div class="card-body text-center">
+        <h6 class="text-truncate">{{ product.name }}</h6>
+        <p class="price">₹{{ product.price }}</p>
+        <p class="text-muted" style="font-size:12px;">{{ product.category.name }}</p>
 
-        <p style="color:#2563eb;">₹{{ product.price }}</p>
-
-        <p style="font-size:12px; color:#6b7280;">
-          {{ product.category.name }}
-        </p>
-
-        <a href="/product/{{product.id}}" 
-           class="btn btn-outline-primary btn-sm">
-          View
-        </a>
-
-        <button class="btn btn-warning btn-sm">
-          Add to Cart
-        </button>
+        <!-- BUTTONS -->
+        <div class="d-flex justify-content-center gap-2">
+          <a href="{% url 'public_product_detail' product.id %}" class="btn btn-outline-primary btn-sm">View</a>
+          <button class="btn btn-warning btn-sm">Cart</button>
+        </div>
       </div>
 
     </div>
+
   </div>
 
   {% empty %}
     <p>No products found 😕</p>
   {% endfor %}
+
 </div>
 
-
-<!-- Vendor Section -->
+<!-- 🔹 VENDOR CTA -->
 <div class="mt-5 p-5 bg-white rounded shadow-sm text-center">
-  <h3>Sell on MyMarket</h3>
+  <h3>Sell on GOLDEN DIVINE</h3>
   <p>Start your own store and reach thousands of customers.</p>
 
-  {% if user.is_authenticated %} {% if vendor %} {% if vendor.is_approved %}
-  <a href="{% url 'vendor_dashboard' %}" class="btn btn-success">
-    Go to Dashboard
-  </a>
-  {% else %}
-  <p class="text-warning">Approval Pending ⏳</p>
-  {% endif %} {% else %}
-  <a href="{% url 'become_vendor' %}" class="btn btn-primary">
-    Become Vendor
-  </a>
-  {% endif %} {% endif %}
+  {% if user.is_authenticated %}
+    {% if vendor %}
+      {% if vendor.is_approved %}
+        <a href="{% url 'vendor_dashboard' %}" class="btn btn-success">Go to Dashboard</a>
+      {% else %}
+        <p class="text-warning">Approval Pending ⏳</p>
+      {% endif %}
+    {% else %}
+      <a href="{% url 'become_vendor' %}" class="btn btn-primary">Become Vendor</a>
+    {% endif %}
+  {% endif %}
 </div>
 
 {% endblock %}

@@ -78,3 +78,11 @@ def delete_product(request, id):
     product.delete()
 
     return redirect('product_list')
+
+
+def public_product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+
+    return render(request, 'vendors/public_product_detail.html', {
+        'product': product
+    })

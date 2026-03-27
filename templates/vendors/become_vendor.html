@@ -1,27 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Become Vendor</title>
-  //fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* Copy the body, .card, form styles from vendor_base.html above */
-    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-    .container { max-width: 400px; width: 100%; }
-  </style>
+    <title>Become Vendor</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .form-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="card">
-      <h2 style="text-align: center; margin-bottom: 30px;">🚀 Become a Vendor</h2>
-      <form method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-          abel>Store Name</label>
-          {{ form.store_name }}
-        </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Register Now</button>
-      </form>
+
+<div class="container">
+    <div class="form-box">
+        <h2>Become a Vendor</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Store Name</label>
+                {{ form.store_name }}
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
     </div>
-  </div>
+</div>
+
 </body>
 </html>

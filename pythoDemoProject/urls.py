@@ -21,15 +21,22 @@ from django.urls import path,include
 from pythoDemoProject import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.Home, name='home'),
-    path('about/',views.About, name='about'),
-    path('blog/',views.Blogs, name='blog'),
-    path('contact/',views.Contact, name='contact'),
-    path('marksheet/', views.marksheet, name='marksheet'),
-    path('accounts/',include('accounts.urls')),
-    path('vendors/',include('vendors.urls')),
-    path('vendor/', include('products.urls')),
 
+    # Static pages
+    path('', views.Home, name='home'),
+    path('about/', views.About, name='about'),
+    path('blog/', views.Blogs, name='blog'),
+    path('contact/', views.Contact, name='contact'),
+    path('marksheet/', views.marksheet, name='marksheet'),
+
+    # Auth
+    path('accounts/', include('accounts.urls')),
+
+    # Vendor system
+    path('vendors/', include('vendors.urls')),
+
+    # Products (public)
+    path('products/', include('products.urls')),  # ✅ FIXED
 ]
 
 # ✅ ADD THIS (VERY IMPORTANT)
