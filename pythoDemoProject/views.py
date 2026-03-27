@@ -1,9 +1,38 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from blog.models import Blog
+from django.shortcuts import render
+from vendors.models import Vendor
+from products.models import Product, Category  
+
 
 def Home(request):
-    return render(request,'index.html')
+    search_query = request.GET.get('search', '')
+    category_id = request.GET.get('category')
+
+    vendor = None
+    products = Product.objects.all()
+
+     # 🔍 SEARCH
+    if search_query:
+        products = products.filter(name__icontains=search_query)
+
+    # 📂 CATEGORY FILTER
+    if category_id:
+        products = products.filter(category_id=category_id)
+
+    categories = Category.objects.all()
+
+    if request.user.is_authenticated:
+        vendor = Vendor.objects.filter(user=request.user).first()
+
+    return render(request, 'index.html', {
+        'vendor': vendor,
+        'products': products,
+        'categories': categories,
+        'search_query': search_query,
+        'selected_category': category_id
+    })
 
 
 def About(request):

@@ -1,0 +1,108 @@
+{% extends "vendors/vendor_base.html" %} {% block vendor_content %}
+
+<div class="main">
+  <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+  <h2>📦 Your Products</h2>
+
+  <a href="{% url 'add_product' %}" class="nav-btn btn-success">
+    ➕ Add Product
+  </a>
+</div>
+
+  <div class="card">
+    <div class="card">
+
+  <form method="GET" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+
+    <!-- SEARCH -->
+    <input type="text" name="search" 
+           placeholder="Search products..."
+           value="{{ search_query }}"
+           style="padding:10px; width:200px;">
+
+    <!-- CATEGORY -->
+    <select name="category" style="padding:10px;">
+      <option value="">All Categories</option>
+
+      {% for cat in categories %}
+        <option value="{{ cat.id }}"
+          {% if cat.id|stringformat:"s" == selected_category %}
+            selected
+          {% endif %}
+        >
+          {{ cat.name }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <!-- BUTTON -->
+    <button type="submit" class="nav-btn">🔍 Search</button>
+
+    <!-- RESET -->
+    <a href="{% url 'product_list' %}" class="nav-btn btn-gray">
+      Reset
+    </a>
+
+  </form>
+
+</div>
+
+
+    <table>
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Category</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td>
+            {% if product.image %}
+            <img
+              src="{{ product.image.url }}"
+              style="width: 60px; height: 60px; border-radius: 8px"
+            />
+            {% else %}
+            <span style="color: #aaa">No Image</span>
+            {% endif %}
+          </td>
+          <td>{{ product.category.name|default:"-" }}</td>
+
+          <td><b>{{ product.name }}</b></td>
+
+          <td style="color: #2563eb">₹{{ product.price }}</td>
+
+          <td>
+            <a
+              href="{% url 'edit_product' product.id %}"
+              class="nav-btn btn-warning"
+              >Edit</a
+            >
+            <a
+              href="{% url 'delete_product' product.id %}"
+              class="nav-btn logout"
+              onclick="return confirm('Delete this product?');"
+              >Delete</a
+            >
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" style="text-align:center; padding:20px;">
+             No products match your search 😕
+            </td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

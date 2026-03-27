@@ -1,0 +1,52 @@
+{% extends "vendors/vendor_base.html" %}
+
+{% block vendor_content %}
+
+<div class="main">
+
+  <div class="card" style="max-width:600px;margin:auto;">
+
+    <h2 style="text-align:center;">➕ Add / Edit Product</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <label>Category</label>
+        {{ form.category }}
+        <br>
+      <label>Product Name</label>
+      {{ form.name }}
+
+      <br><br>
+
+      <label>Price</label>
+      {{ form.price }}
+
+      <br><br>
+
+      <label>Description</label>
+      {{ form.description }}
+
+      <br><br>
+
+      <label>Image</label>
+      {{ form.image }}
+
+      {% if form.instance.image %}
+        <img src="{{ form.instance.image.url }}" style="width:100px;margin-top:10px;border-radius:8px;">
+      {% endif %}
+
+      <br><br>
+
+      <div style="display:flex; justify-content:space-between;">
+        <a href="{% url 'product_list' %}" class="nav-btn btn-gray">Back</a>
+        <button type="submit" class="nav-btn btn-success">Save</button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+{% endblock %}

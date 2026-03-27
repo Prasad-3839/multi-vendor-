@@ -2,40 +2,113 @@
 
 <!-- Hero Banner -->
 
-<div class="p-5 text-center bg-light rounded">
-  <h1>Welcome to MyMarket</h1>
+{% comment %}
+<p>Login Status: {{ user.is_authenticated }}</p>
+<p>User: {{ user }}</p>
+<p>Vendor: {{ vendor }}</p>
+{% endcomment %}
 
-  <p>Buy from thousands of vendors.</p>
+<!-- HERO SEARCH -->
+<div style="background:#131921; padding:30px; color:white;">
 
-  <a class="btn btn-warning btn-lg">Start Shopping</a>
+  <h2 style="text-align:center; margin-bottom:20px;">
+    Find the Best Products
+  </h2>
+
+  <form method="GET" 
+        style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+
+    <!-- CATEGORY -->
+    <select name="category" style="padding:10px; border-radius:5px;">
+      <option value="">All</option>
+
+      {% for cat in categories %}
+        <option value="{{ cat.id }}"
+          {% if cat.id|stringformat:"s" == selected_category %}
+            selected
+          {% endif %}
+        >
+          {{ cat.name }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <!-- SEARCH -->
+    <input type="text" name="search"
+           placeholder="Search products..."
+           value="{{ search_query }}"
+           style="padding:10px; width:300px; border-radius:5px; border:none;">
+
+    <!-- BUTTON -->
+    <button type="submit"
+            style="background:#febd69; border:none; padding:10px 15px; border-radius:5px;">
+      🔍 Search
+    </button>
+
+  </form>
+
 </div>
 
 <!-- Featured Products -->
-
-<h3 class="mt-5 mb-3">Featured Products</h3>
+<h3 class="mt-4">Products</h3>
+<p><b>{{ products.count }}</b> results found</p>
 
 <div class="row">
   {% for product in products %}
 
   <div class="col-md-3 mb-4">
-    <div class="card h-100">
-      <img src="{{ product.image.url }}" class="card-img-top" />
+    <div class="card h-100 shadow-sm">
+
+      {% if product.image %}
+        <img src="{{ product.image.url }}" 
+             class="card-img-top" 
+             style="height:200px; object-fit:cover;">
+      {% endif %}
 
       <div class="card-body">
         <h6>{{ product.name }}</h6>
 
-        <p>$ {{ product.price }}</p>
+        <p style="color:#2563eb;">₹{{ product.price }}</p>
 
-        <a href="/product/{{product.id}}" class="btn btn-outline-primary btn-sm"
-          >View</a
-        >
+        <p style="font-size:12px; color:#6b7280;">
+          {{ product.category.name }}
+        </p>
 
-        <button class="btn btn-warning btn-sm">Add to Cart</button>
+        <a href="/product/{{product.id}}" 
+           class="btn btn-outline-primary btn-sm">
+          View
+        </a>
+
+        <button class="btn btn-warning btn-sm">
+          Add to Cart
+        </button>
       </div>
+
     </div>
   </div>
 
+  {% empty %}
+    <p>No products found 😕</p>
   {% endfor %}
+</div>
+
+
+<!-- Vendor Section -->
+<div class="mt-5 p-5 bg-white rounded shadow-sm text-center">
+  <h3>Sell on MyMarket</h3>
+  <p>Start your own store and reach thousands of customers.</p>
+
+  {% if user.is_authenticated %} {% if vendor %} {% if vendor.is_approved %}
+  <a href="{% url 'vendor_dashboard' %}" class="btn btn-success">
+    Go to Dashboard
+  </a>
+  {% else %}
+  <p class="text-warning">Approval Pending ⏳</p>
+  {% endif %} {% else %}
+  <a href="{% url 'become_vendor' %}" class="btn btn-primary">
+    Become Vendor
+  </a>
+  {% endif %} {% endif %}
 </div>
 
 {% endblock %}

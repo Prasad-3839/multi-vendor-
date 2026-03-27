@@ -27,7 +27,8 @@ urlpatterns = [
     path('contact/',views.Contact, name='contact'),
     path('marksheet/', views.marksheet, name='marksheet'),
     path('accounts/',include('accounts.urls')),
-    path('vendors/',include('vendors.urls'))
+    path('vendors/',include('vendors.urls')),
+    path('vendor/', include('products.urls')),
 
 ]
 

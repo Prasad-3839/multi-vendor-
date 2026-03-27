@@ -1,89 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Vendor Dashboard</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
-        }
+{% extends "vendors/vendor_base.html" %}
 
-        .navbar {
-            background-color: #2c3e50;
-            padding: 15px;
-            color: white;
-            text-align: center;
-            font-size: 20px;
-        }
-
-        .container {
-            padding: 30px;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-            max-width: 500px;
-            margin: auto;
-        }
-
-        .card h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .info {
-            margin: 15px 0;
-            font-size: 18px;
-        }
-
-        .label {
-            font-weight: bold;
-            color: #555;
-        }
-
-        .status-approved {
-            color: green;
-            font-weight: bold;
-        }
-
-        .status-pending {
-            color: orange;
-            font-weight: bold;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="navbar">
-    Vendor Dashboard
-</div>
-
-<div class="container">
-    <div class="card">
-        <h2>Welcome, Vendor</h2>
-
-        <div class="info">
-            <span class="label">Store Name:</span>
-            {{ vendor.store_name }}
-        </div>
-
-        <div class="info">
-            <span class="label">Status:</span>
-
-            {% if vendor.is_approved %}
-                <span class="status-approved">Approved ✅</span>
-            {% else %}
-                <span class="status-pending">Pending Approval ⏳</span>
-            {% endif %}
-        </div>
-
+{% block vendor_content %}
+<div class="main">
+  <!-- WELCOME -->
+  <div class="card" style="background: white;">
+    <h2 style="color: #1e293b; margin-bottom: 15px;">Welcome, {{ vendor.store_name }}!</h2>
+    <p style="font-size: 18px; color: #374151;">
+      <strong>Status:</strong>
+      {% if vendor.is_approved %}
+        <span class="approved">Approved ✅</span>
+      {% else %}
+        <span class="pending">Pending Approval ⏳</span>
+      {% endif %}
+    </p>
+  </div>
+  
+  <!-- STATS (light cards) -->
+  <div class="card" style="background: white;">
+    <div class="grid">
+      <div class="stat-card">
+        <h3 style="color: #3b82f6;">{{ vendor.product_set.count }}</h3>
+        <p style="color: #6b7280;">Total Products</p>
+      </div>
+      <div class="stat-card">
+        <h3 style="color: #10b981;">₹0</h3>
+        <p style="color: #6b7280;">Total Revenue</p>
+      </div>
+      <div class="stat-card">
+        <h3 style="color: #f59e0b;">0</h3>
+        <p style="color: #6b7280;">Total Orders</p>
+      </div>
     </div>
+  </div>
 </div>
-
-</body>
-</html>
+{% endblock %}

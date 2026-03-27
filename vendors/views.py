@@ -10,7 +10,7 @@ def become_vendor(request):
             vendor = form.save(commit=False)
             vendor.user = request.user
             vendor.save()
-            return redirect('vendors/vendor_dashboard')
+            return redirect('vendor_dashboard')
     else:
         form = VendorForm()
 
@@ -21,3 +21,4 @@ def become_vendor(request):
 def vendor_dashboard(request):
     vendor = Vendor.objects.get(user=request.user)
     return render(request, 'vendors/vendor_dashboard.html', {'vendor': vendor})
+

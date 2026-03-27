@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Vendor Dashboard</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial;
+        background: #f4f6fb;
+      }
+
+      /* NAVBAR */
+      .navbar {
+        background: #0f172a;
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-btn {
+        color: white;
+        text-decoration: none;
+        margin-left: 12px;
+        padding: 7px 14px;
+        border-radius: 6px;
+        background: #3b82f6;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      .nav-btn:hover {
+        transform: translateY(-1px);
+        opacity: 0.9;
+      }
+
+      .logout {
+        background: #ef4444;
+      }
+
+      /* LAYOUT */
+      .layout {
+        display: flex;
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        width: 230px;
+        height: 100vh;
+        background: #020617;
+        color: white;
+        padding: 20px;
+      }
+
+      .sidebar a {
+        display: block;
+        color: #cbd5f5;
+        padding: 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-bottom: 8px;
+        transition: 0.2s;
+      }
+
+      .sidebar a:hover {
+        background: #2563eb;
+        color: white;
+      }
+
+      /* MAIN */
+      .main {
+        flex: 1;
+        padding: 30px;
+      }
+
+      /* CARD */
+      .card {
+        background: white;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        margin-bottom: 20px;
+      }
+
+      /* TABLE */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      thead {
+        background: #f1f5f9;
+      }
+
+      th,
+      td {
+        padding: 14px;
+      }
+
+      tr:hover {
+        background: #f9fafb;
+      }
+
+      /* FORM */
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 4px rgba(59, 130, 246, 0.3);
+      }
+
+      /* BUTTON */
+      .btn-success {
+        background: #22c55e;
+      }
+      .btn-warning {
+        background: #f59e0b;
+      }
+      .btn-gray {
+        background: #6b7280;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <div class="navbar">
+      <h2>🛒 Vendor Panel</h2>
+      <div class="nav-right">
+        <span>Hi, {{ user.username }}</span>
+        <a href="{% url 'home' %}" class="nav-btn">🏠 Home</a>
+        <a href="{% url 'logout' %}" class="nav-btn logout">🚪 Logout</a>
+      </div>
+    </div>
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <h3>📋 Menu</h3>
+        <a href="{% url 'vendor_dashboard' %}">🏠 Dashboard</a>
+        <a href="{% url 'product_list' %}">📦 Products</a>
+        <a href="{% url 'add_product' %}">➕ Add Product</a>
+      </div>
+      {% block vendor_content %}{% endblock %}
+    </div>
+  </body>
+</html>
