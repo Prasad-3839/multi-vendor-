@@ -37,6 +37,12 @@ urlpatterns = [
 
     # Products (public)
     path('products/', include('products.urls')),  # ✅ FIXED
+
+    # carts
+    path('carts/',include('carts.urls')),
+
+    # order
+    path('orders/',include('orders.urls')),
 ]
 
 # ✅ ADD THIS (VERY IMPORTANT)

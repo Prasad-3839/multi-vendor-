@@ -1,59 +1,96 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
-
-<div class="row bg-white p-4 shadow-sm">
-
+<div class="container mt-4">
+  <div class="row g-4">
     <!-- 🔹 LEFT: IMAGE -->
-    <div class="col-md-5 text-center">
+    <div class="col-md-5">
+      <div class="card border-0 shadow-sm p-3 text-center">
         {% if product.image %}
-            <img src="{{ product.image.url }}" class="img-fluid" style="max-height:400px;">
+        <img
+          src="{{ product.image.url }}"
+          class="img-fluid rounded"
+          style="max-height: 400px; object-fit: contain"
+        />
         {% endif %}
-
-        <!-- Buttons -->
-        <div class="mt-4 d-flex justify-content-center">
-            <button class="btn btn-warning me-2 px-4 py-2">Add to Cart</button>
-            <button class="btn btn-danger px-4 py-2">Buy Now</button>
-        </div>
+      </div>
     </div>
 
-    <!-- 🔹 RIGHT: DETAILS -->
-    <div class="col-md-7">
+    <!-- 🔹 CENTER: DETAILS -->
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm p-4 h-100">
+        <!-- Title -->
+        <h4 class="fw-bold">{{ product.name }}</h4>
 
-        <h4>{{ product.name }}</h4>
-
+        <!-- Category -->
         <p class="text-muted">Category: {{ product.category.name }}</p>
 
+        <!-- Rating -->
+        <div class="mb-2">
+          <span class="badge bg-success">4.5 ★</span>
+          <span class="text-muted">(230 ratings)</span>
+        </div>
+
         <!-- Price -->
-        <h3 class="text-success">₹{{ product.price }}</h3>
+        <div class="my-3">
+          <h3 class="text-success fw-bold">₹{{ product.price }}</h3>
 
-        <!-- Fake Discount -->
-        <p>
-            <span class="text-muted text-decoration-line-through">₹{{ product.price|add:200 }}</span>
-            <span class="text-success">20% off</span>
-        </p>
+          <span class="text-muted text-decoration-line-through">
+            ₹{{ product.price|add:300 }}
+          </span>
 
-        <!-- Description -->
-        <h5 class="mt-4">Description</h5>
-        <p>{{ product.description }}</p>
-
-        <!-- Highlights -->
-        <h5 class="mt-4">Highlights</h5>
-        <ul>
-            <li>High Quality Product</li>
-            <li>Cash on Delivery Available</li>
-            <li>Easy Returns</li>
-            <li>Fast Delivery</li>
-        </ul>
-
+          <span class="text-success fw-bold ms-2"> 25% off </span>
+        </div>
+      </div>
     </div>
 
-</div>
+    <!-- 🔹 RIGHT: BUY BOX -->
+    <div class="col-md-3">
+      <div class="card shadow-sm p-4 sticky-top" style="top: 80px">
+        <!-- Price -->
+        <h4 class="fw-bold text-success mb-2">₹{{ product.price }}</h4>
 
-<!-- 🔹 EXTRA SECTION -->
-<div class="bg-white mt-4 p-4 shadow-sm">
-    <h5>Product Details</h5>
-    <p>{{ product.description }}</p>
+        <p class="text-success small">✔ In stock</p>
+
+        <p class="text-muted small mb-3">FREE delivery by <b>Tomorrow</b></p>
+
+        <!-- Quantity -->
+        <div class="mb-3">
+          <label class="form-label small">Quantity</label>
+          <select class="form-select">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-grid gap-2">
+          <button class="btn btn-warning fw-bold">
+            <a
+              href="{% url 'carts:add_to_cart' product.id %}"
+            >
+              Add to Cart
+            </a>
+          </button>
+
+          <button class="btn btn-danger fw-bold">⚡ Buy Now</button>
+        </div>
+
+        <!-- Extra Info -->
+        <hr />
+
+        <p class="small text-muted mb-1">
+          Sold by: <b>{{ product.vendor }}</b>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 EXTRA DETAILS -->
+  <div class="card border-0 shadow-sm mt-4 p-4">
+    <h5 class="fw-bold">Product Details</h5>
+    <p class="text-muted">{{ product.description }}</p>
+  </div>
 </div>
 
 {% endblock %}

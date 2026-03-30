@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'accounts',
     'vendors',
     'products',
+    'carts',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'carts.context_processors.cart_count',
             ],
         },
     },
@@ -136,3 +139,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+
+RAZORPAY_KEY_ID = "rzp_test_SXPqMmCaoiKtS8"
+RAZORPAY_KEY_SECRET = "QUfYnhCcRHhJEow6tTv67pnr"

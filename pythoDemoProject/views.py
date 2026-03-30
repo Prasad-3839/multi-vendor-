@@ -11,7 +11,7 @@ def Home(request):
     category_id = request.GET.get('category')
 
     vendor = None
-    products = Product.objects.all()
+    products = Product.objects.filter(vendor__is_approved=True)
 
      # 🔍 SEARCH
     if search_query:

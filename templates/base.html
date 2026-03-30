@@ -60,14 +60,32 @@
     <a class="navbar-brand" href="{% url 'home' %}">GOLDEN DIVINE</a>
 
     <!-- SEARCH -->
-    <form method="GET" class="d-flex mx-auto">
-      <input class="form-control search-bar me-2"
-             type="search"
-             name="search"
-             placeholder="Search for products..."
-             value="{{ request.GET.search }}">
-      <button class="btn btn-warning">Search</button>
-    </form>
+   <form method="GET" class="d-flex mx-auto align-items-center gap-2 flex-wrap">
+
+  <!-- Category Dropdown -->
+  <select name="category" class="form-select" style="width:180px;">
+    <option value="">All Categories</option>
+    {% for cat in categories %}
+      <option value="{{ cat.id }}"
+        {% if cat.id|stringformat:"s" == request.GET.category %}selected{% endif %}>
+        {{ cat.name }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <!-- Search Input -->
+  <input class="form-control search-bar"
+         type="search"
+         name="search"
+         placeholder="Search for products..."
+         style="width:280px;"
+         value="{{ request.GET.search }}">
+
+  <!-- Button -->
+  <button class="btn btn-warning">Search</button>
+
+</form>
+
 
     <!-- RIGHT SIDE -->
     <ul class="navbar-nav ms-auto align-items-center">
@@ -96,14 +114,18 @@
       {% endif %}
 
       <!-- Cart Button -->
-      <li class="nav-item position-relative">
-        <a href="/cart/" class="btn btn-warning btn-sm position-relative">
-          🛒 Cart
+      <li class="nav-item">
+        <a href="{% url 'carts:cart' %}" class="position-relative text-decoration-none fs-5">
+          
+          🛒
+
           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             {{ cart_count|default:0 }}
           </span>
+
         </a>
       </li>
+
 
     </ul>
 
