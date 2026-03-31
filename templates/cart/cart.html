@@ -1,126 +1,105 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <div class="container mt-4">
+  <div class="row">
+    <!-- LEFT: CART ITEMS -->
+    <div class="col-md-8">
+      {% if items %} {% for item in items %}
+      <div class="card mb-3 shadow-sm p-3">
+        <div class="row">
+          <!-- Product Image -->
+          <div class="col-md-3">
+            <img
+              src="{{ item.product.image.url }}"
+              class="img-fluid"
+              style="height: 120px; object-fit: cover"
+            />
+          </div>
 
-    <h3 class="fw-bold mb-4">🛒 Your Cart</h3>
+          <!-- Product Info -->
+          <div class="col-md-6">
+            <h6>{{ item.product.name }}</h6>
+            <p class="text-muted">₹{{ item.product.price }}</p>
 
-    {% if items %}
+            <!-- Quantity Controls -->
+            <div class="d-flex align-items-center">
+              <a
+                href="{% url 'carts:update_quantity' item.id %}?action=decrease"
+                class="btn btn-sm btn-outline-secondary"
+                >−</a
+              >
 
-    <div class="row g-4">
+              <span class="mx-2">{{ item.quantity }}</span>
 
-        <!-- 🔹 LEFT: CART ITEMS -->
-        <div class="col-md-8">
-
-            {% for item in items %}
-            <div class="card shadow-sm border-0 mb-3">
-                <div class="row g-0 align-items-center">
-
-                    <!-- Image -->
-                    <div class="col-md-3 text-center p-3">
-                        {% if item.product.image %}
-                            <img src="{{ item.product.image.url }}" 
-                                 class="img-fluid rounded"
-                                 style="max-height:120px; object-fit:contain;">
-                        {% endif %}
-                    </div>
-
-                    <!-- Details -->
-                    <div class="col-md-6">
-                        <div class="card-body">
-
-                            <h5 class="mb-1">{{ item.product.name }}</h5>
-
-                            <p class="text-muted small mb-2">
-                                ₹{{ item.product.price }} per item
-                            </p>
-
-                            <!-- Quantity Controls -->
-                            <div class="d-flex align-items-center mb-2">
-
-                                <a href="{% url 'carts:update_quantity' item.id %}?action=decrease"
-                                   class="btn btn-sm btn-outline-secondary">−</a>
-
-                                <span class="mx-3 fw-bold">{{ item.quantity }}</span>
-
-                                <a href="{% url 'carts:update_quantity' item.id %}?action=increase"
-                                   class="btn btn-sm btn-outline-secondary">+</a>
-
-                            </div>
-
-                            <!-- Remove -->
-                            <a href="{% url 'carts:remove_from_cart' item.id %}" 
-                               class="btn btn-sm btn-outline-danger">
-                                Remove
-                            </a>
-
-                        </div>
-                    </div>
-
-                    <!-- Total Price -->
-                    <div class="col-md-3 text-center">
-                        <h5 class="fw-bold text-success">
-                            ₹{{ item.total_price }}
-                        </h5>
-                    </div>
-
-                </div>
-            </div>
-            {% endfor %}
-
-        </div>
-
-
-        <!-- 🔹 RIGHT: SUMMARY -->
-        <div class="col-md-4">
-
-            <div class="card shadow-sm p-4 sticky-top" style="top:80px;">
-
-                <h5 class="fw-bold mb-3">Price Details</h5>
-
-                <div class="d-flex justify-content-between">
-                    <span>Items</span>
-                    <span>{{ items|length }}</span>
-                </div>
-
-                <div class="d-flex justify-content-between mt-2">
-                    <span>Total</span>
-                    <span>₹{{ total }}</span>
-                </div>
-
-                <hr>
-
-                <div class="d-flex justify-content-between fw-bold">
-                    <span>Grand Total</span>
-                    <span class="text-success">₹{{ total }}</span>
-                </div>
-
-                <a href="{% url 'checkout' %}" class="btn btn-success">
-                    Proceed to Checkout
-                </a>
-
-
+              <a
+                href="{% url 'carts:update_quantity' item.id %}?action=increase"
+                class="btn btn-sm btn-outline-secondary"
+                >+</a
+              >
             </div>
 
-        </div>
+            <!-- Remove -->
+            <a
+              href="{% url 'carts:remove_from_cart' item.id %}"
+              class="text-danger d-block mt-2"
+            >
+              Remove
+            </a>
+          </div>
 
+          <!-- Price -->
+          <div class="col-md-3 text-end">
+            <h6>₹{{ item.total_price }}</h6>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <div class="text-center mt-5">
+        <h4>Your cart is empty 🛒</h4>
+        <a href="/" class="btn btn-primary mt-3">Shop Now</a>
+      </div>
+      {% endif %}
     </div>
 
-    {% else %}
+    <!-- RIGHT: PRICE DETAILS -->
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3" style="position: sticky; top: 80px">
+        <h5 class="mb-3">PRICE DETAILS</h5>
 
-    <!-- 🔹 EMPTY CART -->
-    <div class="text-center mt-5">
-        <h4>Your cart is empty 😔</h4>
-        <p class="text-muted">Looks like you haven’t added anything yet.</p>
+        <hr />
 
-        <a href="/" class="btn btn-primary mt-3">
-            Continue Shopping
+        <div class="d-flex justify-content-between">
+          <span>Price</span>
+          <span>₹{{ total }}</span>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <span>Delivery Charges</span>
+          <span class="text-success">FREE</span>
+        </div>
+
+        <hr />
+
+        <div class="d-flex justify-content-between fw-bold">
+          <span>Total Amount</span>
+          <span>₹{{ total }}</span>
+        </div>
+
+        <hr />
+
+        <!-- CHECKOUT BUTTON -->
+        {% if items %}
+        <a href="{% url 'checkout' %}" class="btn btn-warning w-100 mt-3">
+          PLACE ORDER
         </a>
+        {% else %}
+        <button class="btn btn-secondary w-100 mt-3" disabled>
+          Cart is Empty
+        </button>
+        {% endif %}
+      </div>
     </div>
-
-    {% endif %}
-
+  </div>
 </div>
 
 {% endblock %}

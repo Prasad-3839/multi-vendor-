@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5 text-center">
+
+    <div class="card shadow p-5">
+
+        <!-- Failed Icon -->
+        <div class="mb-4">
+            <div style="
+                width:80px;
+                height:80px;
+                background:#dc3545;
+                border-radius:50%;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                margin:auto;
+                font-size:40px;
+                color:white;">
+                ✕
+            </div>
+        </div>
+
+        <h2 class="text-danger">Payment Failed!</h2>
+        <p class="text-muted mt-2">
+            Something went wrong or payment was cancelled.
+        </p>
+
+        <hr>
+
+        <p class="mb-4">
+            Don’t worry, your money is safe. You can try again.
+        </p>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center gap-3">
+
+            <a href="{% url 'carts:cart' %}" class="btn btn-warning">
+                Try Again
+            </a>
+
+            <a href="/" class="btn btn-outline-dark">
+                Go Home
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

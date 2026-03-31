@@ -1,118 +1,210 @@
-from django.shortcuts import render,redirect
-import razorpay
+import stripe
 from django.conf import settings
+from django.shortcuts import redirect, render,get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-# Create your views here.
 
-from carts.models import Cart, CartItem
-from orders.models import Order, OrderItem  # adjust if same app
+from carts.models import Cart
+from .models import Order, OrderItem
 
 
-def checkout(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    
-    cart = Cart.objects.filter(user=request.user).first()
-    items = CartItem.objects.filter(cart=cart)
+# ✅ Stripe Setup
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
-    total = sum(item.product.price * item.quantity for item in items)
 
-    # 💰 Razorpay works in paise
-    amount = int(total * 100)
-
-    client = razorpay.Client(auth=(
-        settings.RAZORPAY_KEY_ID,
-        settings.RAZORPAY_KEY_SECRET
-    ))
-
-    payment = client.order.create({
-        'amount': amount,
-        'currency': 'INR',
-        'payment_capture': 1
-    })
-
-     # Save order
-    order = Order.objects.create(
-        user=request.user,
-        total_amount=total,
-        razorpay_order_id=payment['id']
-    )
-
-    return render(request, 'order/checkout.html', {
-        'payment': payment,
-        'order': order,
-        'razorpay_key': settings.RAZORPAY_KEY_ID
-    })
-
-def payment_success(request):
-    payment_id = request.GET.get('payment_id')
-    order_id = request.GET.get('order_id')
-    signature = request.GET.get('signature')
-
-    client = razorpay.Client(auth=(
-        settings.RAZORPAY_KEY_ID,
-        settings.RAZORPAY_KEY_SECRET
-    ))
-
+# =========================
+# CREATE ORDER FROM CART
+# =========================
+def create_order_from_cart(user):
     try:
-        client.utility.verify_payment_signature({
-            'razorpay_order_id': order_id,
-            'razorpay_payment_id': payment_id,
-            'razorpay_signature': signature
-        })
+        cart = Cart.objects.get(user=user)
+    except Cart.DoesNotExist:
+        return None
 
-        order = Order.objects.get(razorpay_order_id=order_id)
-        order.razorpay_payment_id = payment_id
-        order.razorpay_signature = signature
-        order.is_paid = True
-        order.save()
+    items = cart.items.select_related('product')
 
-        return HttpResponse("✅ Payment Successful")
+    if not items.exists():
+        return None
 
-    except:
-        return HttpResponse("❌ Payment Failed")
-
-
-
-def payment_failed(request):
-    return HttpResponse("❌ Payment Cancelled or Failed")
-
-
-
-
-
-def place_order(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-
-    cart = Cart.objects.filter(user=request.user).first()
-    items = CartItem.objects.filter(cart=cart)
-
-    if not items:
-        return HttpResponse("Cart is empty")
-
-    # 💰 Calculate total
-    total = sum(item.product.price * item.quantity for item in items)
-
-    # 🧾 Create Order
     order = Order.objects.create(
-        user=request.user,
-        total_amount=total
+        user=user,
+        total_amount=0,
+        status='PENDING'
     )
 
-    # 📦 Create Order Items
+    total = 0
+
     for item in items:
+        price_inr = float(item.product.price)  # 2000.0 INR
+
         OrderItem.objects.create(
             order=order,
             product=item.product,
             quantity=item.quantity,
-            price=item.product.price
+            price=price_inr
         )
 
-    # 🧹 Clear Cart
-    items.delete()
+        total += price_inr * item.quantity
 
-    return redirect('order_success')
+    order.total_amount = total
+    order.save()
 
-def order_success(request):
-    return render(request, 'order_success.html')
+    return order
+
+
+# =========================
+# CHECKOUT (STRIPE)
+# =========================
+def checkout(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    order = create_order_from_cart(request.user)
+
+    if not order:
+        return redirect('carts:cart')
+
+    line_items = []
+
+    for item in order.items.all():
+        line_items.append({
+            "price_data": {
+                "currency": "inr",
+                "product_data": {
+                    "name": item.product.name,
+                },
+                "unit_amount": item.price,
+            },
+            "quantity": item.quantity,
+        })
+
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+
+        success_url='http://127.0.0.1:8000/orders/success/?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url='http://127.0.0.1:8000/orders/cancel/',
+
+        metadata={
+            "order_id": order.id
+        }
+    )
+
+
+    order.stripe_session_id = session.id
+    order.save()
+ 
+    return redirect(session.url)
+
+
+# =========================
+# SUCCESS PAGE (UI ONLY)
+# =========================
+def payment_success(request):
+    session_id = request.GET.get('session_id')
+
+    if not session_id:
+        return render(request, 'orders/payment_failed.html')
+
+    session = stripe.checkout.Session.retrieve(session_id)
+
+    if session.payment_status == 'paid':
+        order_id = session.metadata['order_id']  # ✅ FIXED
+
+        order = Order.objects.get(id=order_id)
+        order.status = 'PAID'
+        order.save()
+
+    print("Order marked as PAID:", order.id)
+
+    return render(request, 'orders/payment_success.html')
+
+# =========================
+# CANCEL PAGE
+# =========================
+def payment_cancel(request):
+    return render(request, 'orders/payment_failed.html')
+
+
+# =========================
+# STRIPE WEBHOOK
+# =========================
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload,
+            sig_header,
+            settings.STRIPE_WEBHOOK_SECRET
+        )
+    except stripe.error.SignatureVerificationError:
+        return HttpResponse(status=400)
+
+    # ✅ PAYMENT SUCCESS
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+
+        session_id = session.get('id')
+        payment_intent = session.get('payment_intent')
+
+        try:
+            order = Order.objects.get(stripe_session_id=session_id)
+
+            order.status = 'PAID'
+            order.stripe_payment_intent = payment_intent
+            order.save()
+
+            # ✅ Clear Cart
+            Cart.objects.filter(user=order.user).delete()
+
+            print("Webhook triggered")
+            print("Event:", event['type'])
+
+        except Order.DoesNotExist:
+            pass
+
+    # ❌ PAYMENT FAILED / EXPIRED
+    elif event['type'] in ['checkout.session.expired']:
+        session = event['data']['object']
+        session_id = session.get('id')
+
+        Order.objects.filter(
+            stripe_session_id=session_id
+        ).update(status='FAILED')
+
+    return HttpResponse(status=200)
+
+
+def order_history(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    orders = Order.objects.filter(
+        user=request.user
+    ).order_by('-created_at')
+
+    return render(request, 'orders/history.html', {
+        'orders': orders
+    })
+
+
+def order_detail(request, order_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    order = get_object_or_404(
+        Order,
+        id=order_id,
+        user=request.user   # 🔐 SECURITY
+    )
+
+    items = order.items.select_related('product')
+
+    return render(request, 'orders/detail.html', {
+        'order': order,
+        'items': items
+    })
